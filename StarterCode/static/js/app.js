@@ -19,4 +19,26 @@ tableData.forEach(function (dict) {
     })
 })
 
-// var 
+//select input
+var inputValue=d3.select("#datetime")
+// locate button
+var button = d3.select("#filter-btn")
+// //select table 
+var table = d3.select("#table table-striped")
+// //create event handlers
+button.on("click", runEnter);
+table.on("submit", runEnter);
+
+function runEnter() {
+    d3.event.preventDefault();
+    var inputElement= d3.select(".form-control");
+    // Get the value property of the input element
+    var inputDate= inputElement.property("value");
+   console.log(inputDate)
+    //insert date value into table
+    var filteredData = tableData.filter(day => day.datetime === inputDate)
+    console.log(filteredData)
+    newTable= table.text(filteredData)
+}
+
+button.on("click",runEnter)
