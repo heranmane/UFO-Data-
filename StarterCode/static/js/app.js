@@ -19,26 +19,74 @@ tableData.forEach(function (dict) {
     })
 })
 
-//select input
-var inputValue=d3.select("#datetime")
+//select all inputs
+var dateInput = d3.select("#datetime")
+var cityInput = d3.select("#city")
+
 // locate button
 var button = d3.select("#filter-btn")
 // //select table 
-var table = d3.select("#table table-striped")
-// //create event handlers
+var output = d3.select("#tbody")
+
+//create event handlers
 button.on("click", runEnter);
-table.on("submit", runEnter);
+output.on("submit", runEnter);
 
 function runEnter() {
     d3.event.preventDefault();
-    var inputElement= d3.select(".form-control");
+
+  
     // Get the value property of the input element
-    var inputDate= inputElement.property("value");
-   console.log(inputDate)
-    //insert date value into table
-    var filteredData = tableData.filter(day => day.datetime === inputDate)
-    console.log(filteredData)
-    newTable= table.text(filteredData)
+    var dateValue = dateInput.property("value");
+    var cityValue = cityInput.property("value");
+ 
+    
+    console.log(dateValue)
+    console.log(cityValue)
+    var filteredData = tableData.filter(day => day.datetime === dateValue)
+    // //insert date value into table
+    ('select').on('change', function (e) {
+        // Get the value of the select box
+        var val = dateValue.val();
+        // Show all the rows
+        ('tbody tr').show();
+        // If there is a value hide all the rows except the ones with a data-year of that value
+        if (val) {
+            ('tbody tr').not($('tbody tr[data-year="' + val + '"]')).hide();
+        }
+    });
+
+
+
+
+
+
+    // *************************
+    
+   
+
+
+    // button.on("click", function () {
+    //     d3.select(".table table-stiped").text(filteredData)
+    // });
+
 }
 
-button.on("click",runEnter)
+// //select input
+// var input = d3.select("#datetime")
+// // locate button
+// var button = d3.select("#filter-btn")
+// // //select table 
+// var output = d3.select("tbody")
+
+// button.on("click", runEnter);
+// output.on("submit", runEnter);
+// function runEnter() {
+//     d3.event.preventDefault();
+
+//     //select input element 
+//     var inputValue = input.property("value");
+//     var filteredData = tableData.filter(day => day.datetime === inputValue)
+//     output.text(filteredData)
+    
+// }
