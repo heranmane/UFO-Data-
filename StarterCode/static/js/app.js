@@ -3,25 +3,30 @@ var tableData = data;
 
 // YOUR CODE HERE!
 // Get a reference to the table body
-var tbody = d3.select("tbody");
 
-// Console.log the weather data from data.js
-console.log(tableData);
+function showTable(ufo) {
+    var tbody = d3.select("tbody");
 
-// // Step 1: Loop Through `data` and console.log each weather report object
-tableData.forEach(function (dict) {
-    console.log(dict)
-    var row = tbody.append("tr")
-    Object.entries(dict).forEach(function ([key, value]) {
-        console.log(value)
-        var cell = row.append("td")
-        cell.text(value)
+
+    // // Step 1: Loop Through `data` and console.log each weather report object
+    ufo.forEach(function (dict) {
+        console.log(dict)
+        var row = tbody.append("tr")
+        Object.entries(dict).forEach(function ([key, value]) {
+            console.log(value)
+            var cell = row.append("td")
+            cell.text(value)
+        })
     })
-})
+}
+
+showTable(tableData)
+
 
 //select all inputs
 var dateInput = d3.select("#datetime")
 var cityInput = d3.select("#city")
+var stateInput = d3.select("#state")
 
 // locate button
 var button = d3.select("#filter-btn")
@@ -30,63 +35,34 @@ var output = d3.select("#tbody")
 
 //create event handlers
 button.on("click", runEnter);
-output.on("submit", runEnter);
+
 
 function runEnter() {
     d3.event.preventDefault();
+    d3.select("tbody").html("")
 
-  
+
     // Get the value property of the input element
     var dateValue = dateInput.property("value");
     var cityValue = cityInput.property("value");
- 
-    
+    var stateValue = stateInput.property("value");
+
+
     console.log(dateValue)
     console.log(cityValue)
-    var filteredData = tableData.filter(day => day.datetime === dateValue)
-    // //insert date value into table
-    ('select').on('change', function (e) {
-        // Get the value of the select box
-        var val = dateValue.val();
-        // Show all the rows
-        ('tbody tr').show();
-        // If there is a value hide all the rows except the ones with a data-year of that value
-        if (val) {
-            ('tbody tr').not($('tbody tr[data-year="' + val + '"]')).hide();
-        }
-    });
+
+    // //filter and insert date value into table
+    var filteredDate = tableData.filter(day => day.datetime === dateValue)
+    // console.log(filteredData)
+    var filteredCity = tableData.filter(city => city.city === cityValue)
+    // console.log(filteredCity)
+    var filteredState = tableData.filter(state => state.state === stateValue)
 
 
-
-
-
-
-    // *************************
-    
-   
-
-
-    // button.on("click", function () {
-    //     d3.select(".table table-stiped").text(filteredData)
-    // });
+    showTable(filteredCity)
+    showTable(filteredDate)
+    showTable(filteredState)
 
 }
 
-// //select input
-// var input = d3.select("#datetime")
-// // locate button
-// var button = d3.select("#filter-btn")
-// // //select table 
-// var output = d3.select("tbody")
-
-// button.on("click", runEnter);
-// output.on("submit", runEnter);
-// function runEnter() {
-//     d3.event.preventDefault();
-
-//     //select input element 
-//     var inputValue = input.property("value");
-//     var filteredData = tableData.filter(day => day.datetime === inputValue)
-//     output.text(filteredData)
-    
-// }
+output.on("change", showTable);
