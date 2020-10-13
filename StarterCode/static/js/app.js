@@ -7,7 +7,6 @@ var tableData = data;
 function showTable(ufo) {
     var tbody = d3.select("tbody");
 
-
     // // Step 1: Loop Through `data` and console.log each weather report object
     ufo.forEach(function (dict) {
         console.log(dict)
@@ -23,10 +22,13 @@ function showTable(ufo) {
 showTable(tableData)
 
 
+
 //select all inputs
 var dateInput = d3.select("#datetime")
 var cityInput = d3.select("#city")
 var stateInput = d3.select("#state")
+var countryInput = d3.select("#country")
+var shapeInput = d3.select("#shape")
 
 // locate button
 var button = d3.select("#filter-btn")
@@ -46,10 +48,14 @@ function runEnter() {
     var dateValue = dateInput.property("value");
     var cityValue = cityInput.property("value");
     var stateValue = stateInput.property("value");
+    var countryValue = countryInput.property("value");
+    var shapeValue = shapeInput.property("value");
 
 
     console.log(dateValue)
     console.log(cityValue)
+    console.log(countryValue)
+    console.log(shapeValue)
 
     // //filter and insert date value into table
     var filteredDate = tableData.filter(day => day.datetime === dateValue)
@@ -57,12 +63,18 @@ function runEnter() {
     var filteredCity = tableData.filter(city => city.city === cityValue)
     // console.log(filteredCity)
     var filteredState = tableData.filter(state => state.state === stateValue)
+    // console.log(filteredCity)
+    var filteredCountry = tableData.filter(country => country.country === countryValue)
+    // console.log(filteredCity)
+    var filteredShape = tableData.filter(shape => shape.shape === shapeValue)
 
 
     showTable(filteredCity)
     showTable(filteredDate)
     showTable(filteredState)
+    showTable(filteredCountry)
+    showTable(filteredShape)
+
 
 }
 
-output.on("change", showTable);
