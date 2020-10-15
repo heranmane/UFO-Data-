@@ -1,5 +1,5 @@
 // from data.js
-var tableData = data;
+var tData = data;
 
 // YOUR CODE HERE!
 // Get a reference to the table body
@@ -9,17 +9,17 @@ function showTable(ufo) {
 
     // // Step 1: Loop Through `data` and console.log each weather report object
     ufo.forEach(function (dict) {
-        console.log(dict)
+        // console.log(dict)
         var row = tbody.append("tr")
         Object.entries(dict).forEach(function ([key, value]) {
-            console.log(value)
+            // console.log(value)
             var cell = row.append("td")
             cell.text(value)
         })
     })
 }
 
-showTable(tableData)
+showTable(tData)
 
 
 
@@ -57,23 +57,37 @@ function runEnter() {
     console.log(countryValue)
     console.log(shapeValue)
 
+    tableData = data
+    
     // //filter and insert date value into table
-    var filteredDate = tableData.filter(day => day.datetime === dateValue)
+    if (dateValue !== "") {
+        tableData = tableData.filter(day => day.datetime === dateValue)
+
+    } 
+
     // console.log(filteredData)
-    var filteredCity = tableData.filter(city => city.city === cityValue)
-    // console.log(filteredCity)
-    var filteredState = tableData.filter(state => state.state === stateValue)
-    // console.log(filteredCity)
-    var filteredCountry = tableData.filter(country => country.country === countryValue)
-    // console.log(filteredCity)
-    var filteredShape = tableData.filter(shape => shape.shape === shapeValue)
+    if (cityValue !== "") {
+        tableData = tableData.filter(city => city.city === cityValue)
+    } 
 
+    if (stateValue !== "") {
+        tableData = tableData.filter(state => state.state === stateValue)
 
-    showTable(filteredCity)
-    showTable(filteredDate)
-    showTable(filteredState)
-    showTable(filteredCountry)
-    showTable(filteredShape)
+    } 
+
+    if (countryValue !== "") {
+        tableData = tableData.filter(country => country.country === countryValue)
+    } 
+
+    if (shapeValue !== "") {
+        tableData = tableData.filter(shape => shape.shape === shapeValue)
+
+    } 
+  
+
+    showTable(tableData)
+ 
+    
 
 
 }
